@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Student</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<!--<div th:replace="fragments/_sidebar :: sidebar"></div>-->
+<div class="container mt-5">
+  <h2>Add Student</h2>
+  <form th:action="@{/api/v1/student/addStudent}" th:object="${student}" method="post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" th:field="*{email}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="course">Course:</label>
+      <select id="course" name="course" th:field="*{course}" class="form-control" required>
+        <option value="English">English</option>
+        <option value="Maths">Maths</option>
+        <option value="Science">Science</option>
+        <option value="IT">IT</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="grade">Grade:</label>
+      <input type="number" id="grade" name="grade" th:field="*{grade}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select id="status" name="status" th:field="*{status}" class="form-control" required>
+        <option value="Active">Active</option>
+        <option value="Graduated">Graduated</option>
+        <option value="Disabled">Disabled</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Student</button>
+  </form>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js (if needed) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
