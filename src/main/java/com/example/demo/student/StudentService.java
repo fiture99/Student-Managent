@@ -59,4 +59,16 @@ public class StudentService {
 
         student.setCourse(course);
     }
+
+    @Transactional
+    public void addCourseToStudent(Long studentId, Course course, Integer grade){
+        Student student =  studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("Student with ID "+studentId+" does not exist"));
+            if (grade != null && grade > 0 && !Objects.equals(student.getLetterGrade(), grade)) {
+            student.setGrade(grade);
+            }
+            student.getCourses().add(course);
+            studentRepository.save(student);
+
+    }
 }

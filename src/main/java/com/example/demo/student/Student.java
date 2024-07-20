@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -20,6 +22,7 @@ public class Student {
             strategy =  GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
+
     private  Long id;
     private String name;
     private String email;
@@ -31,6 +34,13 @@ public class Student {
     private Integer grade;
     private LetterGrade letterGrade;
     private String status;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "student_id")
+    private List<Course> courses =  new ArrayList<>();
+
+
+
 
     public Student() {
     }
@@ -141,6 +151,14 @@ public class Student {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
     }
 
     @Override
