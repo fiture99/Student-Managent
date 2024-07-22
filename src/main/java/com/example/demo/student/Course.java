@@ -13,11 +13,13 @@ public class Course {
     private Long id;
     private String name;
     private Integer grade;
+    private Integer courseCode;
     private LetterGrade letterGrade;
     public Course() {}
 
-    public Course(String name, Integer grade) {
+    public Course(String name,Integer courseCode, Integer grade) {
         this.name = name;
+        this.courseCode = courseCode;
         this.grade = grade;
     }
 
@@ -31,6 +33,14 @@ public class Course {
 
     public String getName() {
         return name;
+    }
+
+    public Integer getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(Integer courseCode) {
+        this.courseCode = courseCode;
     }
 
     public void setName(String name) {
@@ -52,13 +62,14 @@ public class Course {
         this.grade = grade;
     }
 
-    
+
 
     @Override
     public String toString() {
         return "Course{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", courseCode=" + courseCode +
                 ", grade=" + grade +
                 '}';
     }

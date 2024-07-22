@@ -35,12 +35,12 @@ public class StudentController {
 
     @PutMapping("/update/{studentId}")
     public void updateStudent(@PathVariable Long studentId, @RequestBody Student student) {
-        studentService.updateStudent(studentId, student.getName(), student.getEmail(), student.getCourse(), student.getGrade());
+        studentService.updateStudent(studentId, student.getName(), student.getEmail(), student.getField(), student.getSemester());
     }
 
     @PostMapping("/{studentId}/course")
     public void addCourseToStudent(@PathVariable("studentId") Long studentId, @RequestBody Course course){
-        studentService.addCourseToStudent(studentId,course, course.getGrade());
+        studentService.addCourseToStudent(studentId, course.getId(), course.getCourseCode(), course, course.getGrade());
     }
 
 

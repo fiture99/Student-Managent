@@ -30,8 +30,8 @@ public class Student {
     @Transient
     private Integer age;
 
-    private String course;
-    private Integer grade;
+    private String field;
+    private Integer semester;
     private LetterGrade letterGrade;
     private String status;
 
@@ -49,15 +49,15 @@ public class Student {
                    String name,
                    String email,
                    LocalDate dob,
-                   String course,
-                   Integer grade,
+                   String field,
+                   Integer semester,
                     String status) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.course = course;
-        this.grade = grade;
+        this.field = field;
+        this.semester = semester;
         this.status = status;
 
 
@@ -68,14 +68,14 @@ public class Student {
     public Student(String name,
                    String email,
                    LocalDate dob,
-                   String course,
-                   Integer grade,
+                   String field,
+                   Integer semester,
                    String status) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.course = course;
-        this.grade = grade;
+        this.field = field;
+        this.semester = semester;
         this.status = status;
 
 
@@ -122,27 +122,27 @@ public class Student {
     }
 
 
-    public String getCourse() {
-        return course;
+    public String getField() {
+        return field;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setField(String field) {
+        this.field = field;
     }
 
-    public Integer getGrade() {
-        return  grade;
+    public Integer getSemester() {
+        return  semester;
     }
 
- public String getLetterGrade(){
-
-        if(letterGrade == null){
-            letterGrade = LetterGrade.calculateGarde(grade);
-        }
-        return  letterGrade.getLabel();
- }
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+// public String getLetterGrade(){
+//
+//        if(letterGrade == null){
+//            letterGrade = LetterGrade.calculateGarde(grade);
+//        }
+//        return  letterGrade.getLabel();
+// }
+    public void setSemester(Integer semester) {
+        this.semester = semester;
     }
 
     public String getStatus() {
@@ -169,8 +169,8 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", dob=" + dob +
                 ", age=" + age +
-                ", course" + course +
-                ", grade" + grade +
+                ", field" + field +
+                ", semester" + semester +
                 '}';
     }
 }

@@ -11,9 +11,11 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
     }
 
     public List<Student> getStudents() {
@@ -37,7 +39,7 @@ public class StudentService {
     }
 
     @Transactional
-    public void updateStudent(Long studentId, String name, String email, String course, Integer grade) {
+    public void updateStudent(Long studentId, String name, String email, String course, Integer semester) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("Student with ID " + studentId + " does not exist"));
 
@@ -53,22 +55,33 @@ public class StudentService {
             student.setEmail(email);
         }
 
-        if (grade != null && grade > 0 && !Objects.equals(student.getLetterGrade(), grade)) {
-            student.setGrade(grade);
+        if (semester != null && semester > 0 && semester <= 6) {
+            student.setSemester(semester);
         }
 
-        student.setCourse(course);
+        student.setField(course);
     }
 
     @Transactional
-    public void addCourseToStudent(Long studentId, Course course, Integer grade){
+    public void addCourseToStudent(Long studentId, Long id, Integer courseCode, Course course, Integer grade){
         Student student =  studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("Student with ID "+studentId+" does not exist"));
-            if (grade != null && grade > 0 && !Objects.equals(student.getLetterGrade(), grade)) {
-            student.setGrade(grade);
+            if (grade != null && grade > 0 && !Objects.equals(course.getLetterGrade(), grade)) {
+            course.setGrade(grade);
             }
-            student.getCourses().add(course);
-            studentRepository.save(student);
+        if (courseCode != null && courseCode > 0 && !Objects.equals(course.getCourseCode(), courseCode)) {
+            Optional<Course> courseOptional = courseRepository.findCourseByCourseCode(courseCode);
+            if (courseOptional.isPresent()) {
+                throw new IllegalStateException("Course is already added");
+            }
+            course.setCourseCode(courseCode);
+        }
+
+        student.getCourses().add(course);
+        studentRepository.save(student);
+
+
+
 
     }
 }
