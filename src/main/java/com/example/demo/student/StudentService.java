@@ -69,19 +69,16 @@ public class StudentService {
             if (grade != null && grade > 0 && !Objects.equals(course.getLetterGrade(), grade)) {
             course.setGrade(grade);
             }
-        if (courseCode != null && courseCode > 0 && !Objects.equals(course.getCourseCode(), courseCode)) {
+        if (courseCode != null && courseCode > 0 && Objects.equals(course.getCourseCode(), courseCode)) {
             Optional<Course> courseOptional = courseRepository.findCourseByCourseCode(courseCode);
             if (courseOptional.isPresent()) {
-                throw new IllegalStateException("Course is already added");
+                throw new IllegalStateException("Course is already added "+ courseCode+ "for "+ studentId);
             }
             course.setCourseCode(courseCode);
         }
 
         student.getCourses().add(course);
         studentRepository.save(student);
-
-
-
 
     }
 }
